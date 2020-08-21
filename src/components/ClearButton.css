@@ -1,0 +1,17 @@
+.clear-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    font-family: "Dancing Script", cursive;
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: #000;
+    background-color: #c5c3cd;
+    outline: 1px solid #888;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: #adacb1;
+}
