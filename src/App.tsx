@@ -3,21 +3,21 @@ import "./App.css";
 import Button from "./components/Button";
 import Input from "./components/Input";
 import ClearButton from "./components/ClearButton";
+import * as math from "mathjs";
 
 type State = {
-    input?: number | "";
+    input?: string;
 };
 
 class App extends React.Component<any, State> {
     constructor(props: undefined) {
         super(props);
-        this.incrementInput = this.incrementInput.bind(this);
         this.state = {
             input: "",
         };
     }
 
-    incrementInput(char: any) {
+    incrementInput = (char?: any) => {
         if (this.state.input !== "") {
             this.setState({
                 input: this.state.input + char,
@@ -27,7 +27,15 @@ class App extends React.Component<any, State> {
                 input: char,
             });
         }
-    }
+    };
+
+    evaluate = (equation?: string) => {
+        if (equation) {
+            this.setState({
+                input: math.simplify(equation).toString(),
+            });
+        }
+    };
 
     render() {
         return (
@@ -44,7 +52,7 @@ class App extends React.Component<any, State> {
                         <Button handleClick={this.incrementInput}>4</Button>
                         <Button handleClick={this.incrementInput}>5</Button>
                         <Button handleClick={this.incrementInput}>6</Button>
-                        <Button handleClick={this.incrementInput}>X</Button>
+                        <Button handleClick={this.incrementInput}>*</Button>
                     </div>
                     <div className="row">
                         <Button handleClick={this.incrementInput}>1</Button>
@@ -55,11 +63,16 @@ class App extends React.Component<any, State> {
                     <div className="row">
                         <Button handleClick={this.incrementInput}>.</Button>
                         <Button handleClick={this.incrementInput}>0</Button>
-                        <Button handleClick={this.incrementInput}>=</Button>
+                        <Button
+                            handleClick={() => this.evaluate(this.state.input)}
+                        >
+                            =
+                        </Button>
                         <Button handleClick={this.incrementInput}>-</Button>
                     </div>
                     <ClearButton
-                        handleClear={() => this.setState({ input: "" })}>
+                        handleClear={() => this.setState({ input: "" })}
+                    >
                         Clear
                     </ClearButton>
                 </div>
